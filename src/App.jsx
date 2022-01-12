@@ -1,7 +1,13 @@
 import React from 'react';
+import { NavBar, Slider } from './components';
 
 function App() {
-  return <div>hello world</div>;
+  return (
+    <div>
+      <NavBar />
+      <Slider />
+    </div>
+  );
 }
 
 export default App;
