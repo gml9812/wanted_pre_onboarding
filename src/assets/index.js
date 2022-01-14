@@ -11,6 +11,7 @@ import slider9 from './images/slider9.jpg';
 import slider10 from './images/slider10.jpg';
 
 import iconMenu from './images/icon-menu.png';
+import profile from './images/profile_default.png';
 
 export {
   slider0,
@@ -25,4 +26,5 @@ export {
   slider9,
   slider10,
   iconMenu,
+  profile,
 };
