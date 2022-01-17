@@ -1,10 +1,11 @@
 import React from 'react';
-import { NavBar, Slider } from './components';
+import { NavBar, Padding, Slider } from './components';
 
 function App() {
   return (
     <div>
       <NavBar />
+      <Padding />
       <Slider />
     </div>
   );
