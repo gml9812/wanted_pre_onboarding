@@ -16,13 +16,16 @@ import {
 import { SLIDE_LIST, SLIDE } from '../../constants';
 
 const SLIDE_COUNT = Object.keys(SLIDE_LIST).length;
-let slideStart = SLIDE.START;
 
 export default function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [slideSize, setSlideSize] = useState(SLIDE.LENGTH); // resize 리스너 test
+  const [slideProperty, setSlideProperty] = useState({
+    slideSize: SLIDE.LENGTH,
+    slideStart: SLIDE.LENGTH,
+  });
   const [readyToClick, setReadyToClick] = useState(true);
   const slideRef = useRef(null);
+  let swipeStartPos = 0;
 
   const transitionOn = () => {
     slideRef.current.style.transition = `transform ${SLIDE.DELAY}ms ease 0s`;
@@ -57,13 +60,12 @@ export default function Slider() {
   const slideTo = useCallback(
     (index) => {
       slideRef.current.style.transform = `translate3d(-${
-        slideStart + index * slideSize
+        slideProperty.slideStart + index * slideProperty.slideSize
       }px, 0px, 0px)`;
     },
-    [slideSize],
+    [slideProperty],
   );
 
-  // 임시로 setTimeout 사용해 딜레이 부여
   const handleLeftButtonClick = () => {
     if (!readyToClick) return;
     setReadyToClick(false);
@@ -82,20 +84,58 @@ export default function Slider() {
     }, SLIDE.DELAY + 100);
   };
 
-  // resize 테스트
-  const handleResize = throttle(() => {
-    const windowWidth = window.innerWidth;
-    const frontSlideNum = Math.floor(SLIDE_COUNT / 2);
+  const handleResize = throttle(
+    () => {
+      transitionOff();
+      const windowWidth = window.innerWidth;
+      const frontSlideNum = Math.floor(SLIDE_COUNT / 2);
 
-    if (windowWidth > 1200) {
-      slideStart = (3 * SLIDE.LENGTH - windowWidth) / 2 + 50 + SLIDE.LENGTH * frontSlideNum;
-      setSlideSize(SLIDE.LENGTH);
-      return;
+      if (windowWidth > 1200) {
+        setSlideProperty({
+          slideStart: (3 * SLIDE.LENGTH - windowWidth) / 2 + 50 + SLIDE.LENGTH * frontSlideNum,
+          slideSize: SLIDE.LENGTH,
+        });
+        return;
+      }
+      setSlideProperty({
+        slideStart:
+          (3 * (windowWidth - 97) - windowWidth) / 2 + 40 + (windowWidth - 97) * frontSlideNum,
+        slideSize: windowWidth - 97,
+      });
+    },
+    200,
+    { leading: false },
+  );
+
+  const handleSwipeStart = (e) => {
+    swipeStartPos = e.pageX;
+    transitionOff();
+  };
+
+  const handleSwipeMove = (e) => {
+    const swipeLength = e.pageX - swipeStartPos;
+    slideRef.current.style.transform = `translate3d(-${
+      slideProperty.slideStart + currentSlide * slideProperty.slideSize - swipeLength
+    }px, 0px, 0px)`;
+  };
+
+  const handleSwipeEnd = (e) => {
+    const swipeLength = e.pageX - swipeStartPos;
+    const threshold = slideProperty.slideSize / 2;
+
+    console.log(swipeLength); ///
+
+    if (swipeLength > threshold) {
+      PrevSlide();
+    } else if (swipeLength < -threshold) {
+      NextSlide();
+    } else {
+      transitionOn(); ///
+      slideRef.current.style.transform = `translate3d(-${
+        slideProperty.slideStart + currentSlide * slideProperty.slideSize
+      }px, 0px, 0px)`;
     }
-    slideStart =
-      (3 * (windowWidth - 97) - windowWidth) / 2 + 40 + (windowWidth - 97) * frontSlideNum;
-    setSlideSize(windowWidth - 97);
-  }, 200);
+  };
 
   useEffect(() => {
     handleResize();
@@ -103,7 +143,7 @@ export default function Slider() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [handleResize]);
+  }, []);
 
   useEffect(() => {
     slideTo(currentSlide);
@@ -126,14 +166,23 @@ export default function Slider() {
     return () => clearTimeout(timeout);
   }, [slideTo, NextSlide, PrevSlide, currentSlide]);
 
-  // SlideTrack, Slides에 임시로 windowSize 부여
   return (
     <Main>
       <TopBanner>
         <StyledSlider>
           <SlickList>
-            <SlickTrack ref={slideRef} slideSize={slideSize}>
-              <SlideList slides={SLIDE_LIST} currentSlide={currentSlide} slideSize={slideSize} />
+            <SlickTrack
+              ref={slideRef}
+              slideSize={slideProperty.slideSize}
+              onDragStart={handleSwipeStart}
+              onDrag={handleSwipeMove}
+              onDragEnd={handleSwipeEnd}
+            >
+              <SlideList
+                slides={SLIDE_LIST}
+                currentSlide={currentSlide}
+                slideSize={slideProperty.slideSize}
+              />
             </SlickTrack>
           </SlickList>
           <LeftButton onClick={handleLeftButtonClick}>
@@ -156,7 +205,6 @@ export default function Slider() {
   );
 }
 
-// 임시로 slideSize 부여
 function SlideList({ slides, currentSlide, slideSize }) {
   const slideKeys = Object.keys(slides);
   const front = slideKeys.slice(0, SLIDE_COUNT / 2);

@@ -116,6 +116,7 @@ export const Image = styled.img`
   border-radius: 4px;
   object-fit: cover;
   display: inline-block;
+  -webkit-user-drag: none;
 `;
 
 export const Information = styled.div`
