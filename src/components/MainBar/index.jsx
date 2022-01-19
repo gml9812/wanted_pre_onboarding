@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { StyledMainBar, Container, Button, Logo, IMG, Icon } from './style';
-import { iconMenu } from '../../assets';
+import { iconMenu, wantedLogo } from '../../assets';
 
 export default function MainBar() {
   return (
@@ -11,7 +11,7 @@ export default function MainBar() {
           <IMG src={iconMenu} />
         </Button>
         <Logo>
-          <Icon />
+          <Icon src={wantedLogo} />
         </Logo>
       </Container>
     </StyledMainBar>

@@ -12,6 +12,7 @@ import slider10 from './images/slider10.jpg';
 
 import iconMenu from './images/icon-menu.png';
 import profile from './images/profile_default.png';
+import wantedLogo from './images/wanted_logo.png';
 
 export {
   slider0,
@@ -27,4 +28,5 @@ export {
   slider10,
   iconMenu,
   profile,
+  wantedLogo,
 };

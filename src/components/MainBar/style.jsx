@@ -30,22 +30,25 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
-  margin-top: -2px;
-  margin-right: 15px;
-  background: none;
-  border: none;
-
   box-sizing: border-box;
   overflow: visible;
   text-transform: none;
   cursor: pointer;
-  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  margin-top: -2px;
+  margin-right: 15px;
 `;
 
 export const Logo = styled.a`
-  background-color: transparent;
   box-sizing: border-box;
-  display: block;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
 
   @media (min-width: 768px) and (max-width: 991px) {
     box-sizing: border-box;
@@ -64,20 +67,7 @@ export const IMG = styled.img`
   object-fit: contain;
 `;
 
-// font-family 미적용
-export const Icon = styled.i`
-  font-size: 17px;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  font-family: 'icomoon';
-  speak: none;
-  font-size: 17px;
-
-  ::before {
-    content: 'wanted';
-  }
+export const Icon = styled.img`
+  width: 74.38px;
+  height: 16.8px;
 `;

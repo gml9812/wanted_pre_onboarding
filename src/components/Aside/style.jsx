@@ -418,7 +418,31 @@ export const AccountImage = styled.div`
   background-position: 50%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: ${(props) => props.src};
+  background-image: url(${(props) => props.src});
+`;
+
+export const Badge = styled.span`
+  font-family: sans-serif;
+  list-style: none;
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  display: inline-flex;
+  background: #36f;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  position: absolute;
+  padding: 0 !important;
+  top: ${(props) => props.top}px;
+  left: ${(props) => props.left}px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+  line-height: 1;
+  background-color: rgb(51, 102, 255);
+  width: 13px;
+  height: 13px;
 `;
 
 export const A = styled.a`

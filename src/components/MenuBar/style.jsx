@@ -99,6 +99,60 @@ export const HomeA = styled.a`
   }
 `;
 
+export const Em = styled.em`
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  position: absolute;
+  top: 10px;
+  right: -5px;
+  pointer-events: none;
+  font-style: normal;
+
+  @media (min-width: 992px) and (max-width: 1100px) {
+    font-family: sans-serif;
+    list-style: none;
+    cursor: pointer;
+    color: inherit;
+    line-height: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    position: absolute;
+    top: 10px;
+    pointer-events: none;
+    font-style: normal;
+    right: -20px;
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    font-family: sans-serif;
+    list-style: none;
+    cursor: pointer;
+    color: inherit;
+    line-height: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    position: absolute;
+    pointer-events: none;
+    font-style: normal;
+    top: 5px;
+    right: -7px;
+  }
+`;
+
 export const A = styled.a`
   list-style: none;
   box-sizing: border-box;
