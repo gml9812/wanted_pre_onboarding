@@ -17,7 +17,7 @@
     원티드 프리온보딩 프론트엔드 코스 참여를 위해 수행한 선발 과제입니다.
     <br />
     <br />
-    <a href="hungry-meitner-18800a.netlify.app"><strong>데모 페이지</strong></a>
+    <a href="https://hungry-meitner-18800a.netlify.app"><strong>데모 페이지</strong></a>
   </p>
 </div>
 
