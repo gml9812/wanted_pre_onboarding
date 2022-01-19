@@ -28,7 +28,7 @@ export default function Slider() {
   let swipeStartPos = 0;
 
   const transitionOn = () => {
-    slideRef.current.style.transition = `transform ${SLIDE.DELAY}ms ease 0s`;
+    slideRef.current.style.transition = `-webkit-transform ${SLIDE.DELAY}ms ease 0s`;
   };
 
   const transitionOff = () => {
@@ -119,18 +119,20 @@ export default function Slider() {
     }px, 0px, 0px)`;
   };
 
+  const handleSwipeOver = (e) => {
+    e.preventDefault();
+  };
+
   const handleSwipeEnd = (e) => {
     const swipeLength = e.pageX - swipeStartPos;
     const threshold = slideProperty.slideSize / 2;
-
-    console.log(swipeLength); ///
 
     if (swipeLength > threshold) {
       PrevSlide();
     } else if (swipeLength < -threshold) {
       NextSlide();
     } else {
-      transitionOn(); ///
+      transitionOn();
       slideRef.current.style.transform = `translate3d(-${
         slideProperty.slideStart + currentSlide * slideProperty.slideSize
       }px, 0px, 0px)`;
@@ -176,6 +178,7 @@ export default function Slider() {
               slideSize={slideProperty.slideSize}
               onDragStart={handleSwipeStart}
               onDrag={handleSwipeMove}
+              onDragOver={handleSwipeOver}
               onDragEnd={handleSwipeEnd}
             >
               <SlideList

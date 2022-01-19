@@ -33,7 +33,7 @@ export default function Aside() {
           <NotiButton>
             <NotiIcon />
           </NotiButton>
-          <NewBadge top="-4" left="24" />
+          <NewBadge top={-4} left={24} />
         </LiNoti>
         <LiAccount>
           <AccountButton>
@@ -41,7 +41,7 @@ export default function Aside() {
               <AccountImage src={profile} />
             </AccountIcon>
           </AccountButton>
-          <NewBadge top="-2" left="22" />
+          <NewBadge top={-2} left={22} />
         </LiAccount>
         <LiAside>
           <A href="/">기업 서비스</A>
